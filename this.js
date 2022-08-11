@@ -18,3 +18,11 @@ let fun1 = user.foo1
 fun1()
 user.foo1()
 
+
+function run(param) {
+    console.log(param, this.id)
+}
+
+const obj = {id: "welcome"};
+
+[1, 2, 3].forEach( run, obj );
