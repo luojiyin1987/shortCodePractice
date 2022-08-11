@@ -1,4 +1,5 @@
 function foo() {
+    "use strict"
     console.log("simple function call")
     console.log(this === global)
 }
