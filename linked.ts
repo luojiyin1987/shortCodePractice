@@ -1,5 +1,3 @@
-import { isNull } from "util";
-
 /*
 properties
 value
