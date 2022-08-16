@@ -33,3 +33,28 @@ for (let i = 0; i < 2000; i++) {
 }
 
 console.timeEnd()
+
+
+const add = (n) => (n)
+
+const memoize= (fn) =>{
+    let cache = {};
+    return (...args)=> {
+        let n = args[0];
+        if( n in cache) {
+            console.log('Fetching from cache');
+            return cache[n]
+        } else {
+            console.log('Calculating result');
+            let result = fn(n);
+            cache[n] = result;
+            return result
+        }
+    }
+}
+
+const memoizedAdd = memoize(add);
+console.log(memoizedAdd(3));
+console.log(memoizedAdd(3));
+console.log(memoizedAdd(4));
+console.log(memoizedAdd(4));
