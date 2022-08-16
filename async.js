@@ -1,4 +1,4 @@
-const asyncUpperCase = (item) => {
+function asyncUpperCase(item) {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(item.toUpperCase())
@@ -7,7 +7,7 @@ const asyncUpperCase = (item) => {
     })
 }
 
-const uppercaseItems = async () => {
+async function uppercaseItems() {
     const items = ['a', 'b', 'c'];
     for (item of items) {
         console.log(await asyncUpperCase(item));
