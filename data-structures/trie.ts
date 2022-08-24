@@ -1,4 +1,4 @@
-const TERMINATING_CHAR = "$$LagoTrieTerminatingCharacter";
+const TERMINATING_CHAR = '$$LagoTrieTerminatingCharacter';
 
 interface TrieNode {
   [key: string]: TrieNode | number;
@@ -151,7 +151,7 @@ class Trie {
 
   shortestPrefix(string: string): string | null {
     let curr = this._tree;
-    const prefixChars = [];
+    const prefixChars: Array<string> = [];
 
     for (let i = 0; i < string.length; i++) {
       const char = string[i];
