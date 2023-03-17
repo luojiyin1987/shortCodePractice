@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 const API_URL = "https://api.github.com";
 
@@ -70,11 +70,11 @@ const Home: NextPage = () => {
     setQuery(event.target.value);
   }
 
-  async function onSearchSubmit(event:React.FormEvent<HTMLFormElement>) {
+  const  onSearchSubmit = useCallback(async (event:React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const results = await fetchResults(query);
     setResults(results);
-  }
+  } , [query])
 
   return (
     <div className={styles.container}>
