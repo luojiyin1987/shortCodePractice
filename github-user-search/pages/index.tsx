@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const API_URL = "https://api.github.com";
 
@@ -11,12 +11,19 @@ async function fetchResults(query: string) {
     const res = await fetch(`${API_URL}/search/users?q=${query}`);
     const json = await res.json();
     return json.items || [];
-  } catch (e) {
+  // rome-ignore lint/suspicious/noExplicitAny: <explanation>
+}  catch (e:any ) {
     throw new Error(e);
   }
 }
 
-function Form({ onSubmit, onChange, value }) {
+interface FormProps {
+  onSubmit:(event: React.FormEvent<HTMLFormElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string
+ }
+
+function Form({ onSubmit, onChange, value }:FormProps) {
   return (
     <form onSubmit={onSubmit}>
       <input
@@ -31,7 +38,13 @@ function Form({ onSubmit, onChange, value }) {
   );
 }
 
-function User({ avatar, url, username }) {
+interface UserProps {
+  avatar: string;
+  url: string;
+  username:string  
+}
+
+function User({ avatar, url, username }: UserProps) {
   return (
     <div>
       <Image src={avatar} alt="Profile" width={50} height={50}  loading="lazy" />
@@ -43,15 +56,21 @@ function User({ avatar, url, username }) {
   );
 }
 
+interface SearchResult {
+  login: string;
+  avatar_url: string;
+  html_url: string;
+}
+
 const Home: NextPage = () => {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<SearchResult[]>([]);
 
-  function onSearchChange(event) {
+  function onSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
     setQuery(event.target.value);
   }
 
-  async function onSearchSubmit(event) {
+  async function onSearchSubmit(event:React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const results = await fetchResults(query);
     setResults(results);
