@@ -23,7 +23,11 @@ const Home: NextPage = () => {
   }, [])
   
 
-  function getRandomQuote(quotes: Quotes|[]):Quote {
+  function getRandomQuote(quotes: Quotes|[]):Quote|null {
+    if(!quotes || quotes.length === 0) {
+      return null
+    }
+
     const index = Math.floor(Math.random() * quotes.length)
     return quotes[index]
   }
