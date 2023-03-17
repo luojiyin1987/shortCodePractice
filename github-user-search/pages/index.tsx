@@ -34,7 +34,7 @@ function Form({ onSubmit, onChange, value }) {
 function User({ avatar, url, username }) {
   return (
     <div>
-      <img src={avatar} alt="Profile" width={50} height={50} />
+      <Image src={avatar} alt="Profile" width={50} height={50}  loading="lazy" />
       <a href={url} target="_blank" rel="noopener noreferrer">
         {" "}
         {username}
