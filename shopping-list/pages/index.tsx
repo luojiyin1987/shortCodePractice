@@ -2,21 +2,22 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { useState } from 'react'
+import React, { useState } from 'react'
+
 
 
 const Home: NextPage = () => {
 
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState<string[]>([])
 
-  function onRemoveItem(itemRemove) {
+  function onRemoveItem(itemRemove:string) {
     const newItems = items.filter((item) =>{
       return item !== itemRemove
     });
     setItems(newItems) 
   }
 
-  function onSubmit(event) {
+  function onSubmit(event: React.FocusEvent<HTMLFormElement>) {
     event.preventDefault()
     const form = event.target
     const input = form.item
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
     form.reset()
   }
 
-  function Item({ item, onRemoveItem }) {
+  function Item({ item, onRemoveItem}:{item:string, onRemoveItem:(item:string)=> void}) {
     return (
       <li>
         {item}
@@ -49,6 +50,7 @@ const Home: NextPage = () => {
             required
             />
             
+            {/* rome-ignore lint/a11y/useButtonType: <explanation> */}
             <button>Add</button>
         </form>
         <ul>
