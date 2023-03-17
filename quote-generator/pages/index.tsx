@@ -4,9 +4,17 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 
+interface Quote {
+  text: string;
+  author: string;
+}
+
+type Quotes = Quote[];
+
+
 const Home: NextPage = () => {
-  const [quotes, setQuotes] = useState([{}])
-  const [quote,  setQuote] = useState({})
+  const [quotes, setQuotes] = useState<Quotes | []>([])
+  const [quote,  setQuote] = useState<Quote |null>(null)
 
   useEffect(()=> {
     fetch("https://type.fit/api/quotes")
@@ -18,7 +26,7 @@ const Home: NextPage = () => {
   }, [])
   
 
-  function getRandomQuote(quotes: {text:string, author:string}[]):{text:string, author:string} {
+  function getRandomQuote(quotes: Quotes|[]):Quote {
     const index = Math.floor(Math.random() * quotes.length)
     return quotes[index]
   }
